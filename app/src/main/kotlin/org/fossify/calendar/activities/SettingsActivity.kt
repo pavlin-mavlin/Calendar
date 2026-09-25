@@ -57,6 +57,7 @@ import org.fossify.calendar.helpers.MONTHLY_VIEW
 import org.fossify.calendar.helpers.PULL_TO_REFRESH
 import org.fossify.calendar.helpers.REMINDER_AUDIO_STREAM
 import org.fossify.calendar.helpers.REMINDER_OFF
+import org.fossify.calendar.helpers.REMIND_ABOUT_STARTED_EVENTS
 import org.fossify.calendar.helpers.REPLACE_DESCRIPTION
 import org.fossify.calendar.helpers.SHOW_GRID
 import org.fossify.calendar.helpers.SHOW_MIDNIGHT_SPANNING_EVENTS_AT_TOP
@@ -206,6 +207,7 @@ class SettingsActivity : SimpleActivity() {
         setupReminderAudioStream()
         setupUseSameSnooze()
         setupLoopReminders()
+        setupRemindAboutStartedEvents()
         setupSnoozeTime()
         setupCaldavSync()
         setupManageSyncedCalendars()
@@ -725,6 +727,14 @@ class SettingsActivity : SimpleActivity() {
         }
     }
 
+    private fun setupRemindAboutStartedEvents() = binding.apply {
+        settingsRemindAboutStartedEvents.isChecked = config.remindAboutStartedEvents
+        settingsRemindAboutStartedEventsHolder.setOnClickListener {
+            settingsRemindAboutStartedEvents.toggle()
+            config.remindAboutStartedEvents = settingsRemindAboutStartedEvents.isChecked
+        }
+    }
+
     private fun setupUseSameSnooze() = binding.apply {
         settingsSnoozeTimeHolder.beVisibleIf(config.useSameSnooze)
         settingsUseSameSnooze.isChecked = config.useSameSnooze
@@ -1158,6 +1168,7 @@ class SettingsActivity : SimpleActivity() {
                 put(REPLACE_DESCRIPTION, config.replaceDescription)
                 put(SHOW_GRID, config.showGrid)
                 put(LOOP_REMINDERS, config.loopReminders)
+                put(REMIND_ABOUT_STARTED_EVENTS, config.remindAboutStartedEvents)
                 put(DIM_PAST_EVENTS, config.dimPastEvents)
                 put(DIM_COMPLETED_TASKS, config.dimCompletedTasks)
                 put(ALLOW_CHANGING_TIME_ZONES, config.allowChangingTimeZones)
@@ -1274,6 +1285,7 @@ class SettingsActivity : SimpleActivity() {
                 REPLACE_DESCRIPTION -> config.replaceDescription = value.toBoolean()
                 SHOW_GRID -> config.showGrid = value.toBoolean()
                 LOOP_REMINDERS -> config.loopReminders = value.toBoolean()
+                REMIND_ABOUT_STARTED_EVENTS -> config.remindAboutStartedEvents = value.toBoolean()
                 DIM_PAST_EVENTS -> config.dimPastEvents = value.toBoolean()
                 DIM_COMPLETED_TASKS -> config.dimCompletedTasks = value.toBoolean()
                 ALLOW_CHANGING_TIME_ZONES -> config.allowChangingTimeZones = value.toBoolean()

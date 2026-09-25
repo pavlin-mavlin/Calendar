@@ -1734,7 +1734,7 @@ class EventActivity : SimpleActivity() {
             eventsHelper.insertEvent(mEvent, addToCalDAV = true, showToasts = true) {
                 hideKeyboard()
 
-                if (DateTime.now().isAfter(mEventStartDateTime.millis)) {
+                if (config.remindAboutStartedEvents && DateTime.now().isAfter(mEventStartDateTime.millis)) {
                     if (
                         mEvent.repeatInterval == 0 && mEvent.getReminders()
                             .any { it.type == REMINDER_NOTIFICATION }

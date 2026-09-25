@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Font size setting for event titles in weekly view
+- Option to disable reminders for newly added events that have already started
 
 ### Changed
 - Event list widget now labels and highlights today's events as "Today"
+
+### Fixed
+- Fixed outdated reminders for events that were moved into the past
 
 ## [1.11.0] - 2026-09-23
 ### Added

@@ -589,7 +589,7 @@ class TaskActivity : SimpleActivity() {
             eventsHelper.insertTask(mTask, true) {
                 hideKeyboard()
 
-                if (DateTime.now().isAfter(mTaskDateTime.millis)) {
+                if (config.remindAboutStartedEvents && DateTime.now().isAfter(mTaskDateTime.millis)) {
                     if (mTask.repeatInterval == 0 && mTask.getReminders()
                             .any { it.type == REMINDER_NOTIFICATION }
                     ) {
