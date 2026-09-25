@@ -678,6 +678,29 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/settings_weekly_view_font_size_holder"
+                style="@style/SettingsHolderTextViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <org.fossify.commons.views.MyTextView
+                    android:id="@+id/settings_weekly_view_font_size_label"
+                    style="@style/SettingsTextLabelStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/font_size" />
+
+                <org.fossify.commons.views.MyTextView
+                    android:id="@+id/settings_weekly_view_font_size"
+                    style="@style/SettingsTextValueStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/settings_weekly_view_font_size_label"
+                    tools:text="100%" />
+
+            </RelativeLayout>
+
             <include
                 android:id="@+id/settings_weekly_view_divider"
                 layout="@layout/divider" />

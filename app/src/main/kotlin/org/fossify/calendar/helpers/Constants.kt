@@ -90,6 +90,11 @@ const val START_WEEKLY_AT = "start_weekly_at"
 const val START_WEEK_WITH_CURRENT_DAY = "start_week_with_current_day"
 const val SHOW_MIDNIGHT_SPANNING_EVENTS_AT_TOP = "show_midnight_spanning_events_at_top"
 const val ALLOW_CUSTOMIZE_DAY_COUNT = "allow_customise_day_count"
+const val WEEKLY_VIEW_EVENT_FONT_SCALE = "weekly_view_event_font_scale"
+const val DEFAULT_WEEKLY_VIEW_EVENT_FONT_SCALE = 100
+
+@Suppress("MagicNumber")
+val WEEKLY_VIEW_EVENT_FONT_SCALES = listOf(DEFAULT_WEEKLY_VIEW_EVENT_FONT_SCALE, 125, 150, 175, 200, 250, 300)
 const val VIBRATE = "vibrate"
 const val REMINDER_SOUND_URI = "reminder_sound_uri"
 const val REMINDER_SOUND_TITLE = "reminder_sound_title"

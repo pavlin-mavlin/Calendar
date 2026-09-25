@@ -42,6 +42,7 @@ import org.fossify.calendar.helpers.Config
 import org.fossify.calendar.helpers.DAY
 import org.fossify.calendar.helpers.DEFAULT_START_TIME_CURRENT_TIME
 import org.fossify.calendar.helpers.DEFAULT_START_TIME_NEXT_FULL_HOUR
+import org.fossify.calendar.helpers.DEFAULT_WEEKLY_VIEW_EVENT_FONT_SCALE
 import org.fossify.calendar.helpers.DELETE_ALL_OCCURRENCES
 import org.fossify.calendar.helpers.DELETE_FUTURE_OCCURRENCES
 import org.fossify.calendar.helpers.DELETE_SELECTED_OCCURRENCE
@@ -953,6 +954,11 @@ fun Context.getWidgetMediumFontSize() =
 
 fun Context.getWidgetLargeFontSize() = getWidgetMediumFontSize() + 3f
 fun Context.getWidgetExtraLargeFontSize() = getWidgetMediumFontSize() + 6f
+
+fun Context.getWeeklyViewEventFontSize(): Float {
+    val defaultSize = resources.getDimension(org.fossify.commons.R.dimen.small_text_size)
+    return defaultSize * config.weeklyViewEventFontScale / DEFAULT_WEEKLY_VIEW_EVENT_FONT_SCALE
+}
 
 fun Context.getWeeklyViewItemHeight(): Float {
     val defaultHeight = resources.getDimension(R.dimen.weekly_view_row_height)

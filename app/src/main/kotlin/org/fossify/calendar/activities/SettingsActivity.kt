@@ -65,6 +65,8 @@ import org.fossify.calendar.helpers.START_WEEK_WITH_CURRENT_DAY
 import org.fossify.calendar.helpers.USE_PREVIOUS_EVENT_REMINDERS
 import org.fossify.calendar.helpers.VIBRATE
 import org.fossify.calendar.helpers.WEEKLY_VIEW
+import org.fossify.calendar.helpers.WEEKLY_VIEW_EVENT_FONT_SCALE
+import org.fossify.calendar.helpers.WEEKLY_VIEW_EVENT_FONT_SCALES
 import org.fossify.calendar.helpers.WEEK_NUMBERS
 import org.fossify.calendar.helpers.YEARLY_VIEW
 import org.fossify.calendar.models.CalendarEntity
@@ -198,6 +200,7 @@ class SettingsActivity : SimpleActivity() {
         setupMidnightSpanEvents()
         setupAllowCustomizeDayCount()
         setupStartWeekWithCurrentDay()
+        setupWeeklyViewEventFontSize()
         setupVibrate()
         setupReminderSound()
         setupReminderAudioStream()
@@ -608,6 +611,19 @@ class SettingsActivity : SimpleActivity() {
             config.startWeekWithCurrentDay = settingsStartWeekWithCurrentDay.isChecked
         }
     }
+
+    private fun setupWeeklyViewEventFontSize() = binding.apply {
+        settingsWeeklyViewFontSize.text = getFontScaleLabel(config.weeklyViewEventFontScale)
+        settingsWeeklyViewFontSizeHolder.setOnClickListener {
+            val items = WEEKLY_VIEW_EVENT_FONT_SCALES.mapTo(ArrayList()) { RadioItem(it, getFontScaleLabel(it)) }
+            RadioGroupDialog(this@SettingsActivity, items, config.weeklyViewEventFontScale) {
+                config.weeklyViewEventFontScale = it as Int
+                settingsWeeklyViewFontSize.text = getFontScaleLabel(it)
+            }
+        }
+    }
+
+    private fun getFontScaleLabel(percent: Int) = "$percent%"
 
     private fun setupWeekNumbers() = binding.apply {
         settingsWeekNumbers.isChecked = config.showWeekNumbers
@@ -1128,6 +1144,7 @@ class SettingsActivity : SimpleActivity() {
                 put(START_WEEKLY_AT, config.startWeeklyAt)
                 put(SHOW_MIDNIGHT_SPANNING_EVENTS_AT_TOP, config.showMidnightSpanningEventsAtTop)
                 put(ALLOW_CUSTOMIZE_DAY_COUNT, config.allowCustomizeDayCount)
+                put(WEEKLY_VIEW_EVENT_FONT_SCALE, config.weeklyViewEventFontScale)
                 put(START_WEEK_WITH_CURRENT_DAY, config.startWeekWithCurrentDay)
                 put(VIBRATE, config.vibrateOnReminder)
                 put(LAST_EVENT_REMINDER_MINUTES, config.lastEventReminderMinutes1)
@@ -1243,6 +1260,7 @@ class SettingsActivity : SimpleActivity() {
                     value.toBoolean()
 
                 ALLOW_CUSTOMIZE_DAY_COUNT -> config.allowCustomizeDayCount = value.toBoolean()
+                WEEKLY_VIEW_EVENT_FONT_SCALE -> config.weeklyViewEventFontScale = value.toInt()
                 START_WEEK_WITH_CURRENT_DAY -> config.startWeekWithCurrentDay = value.toBoolean()
                 VIBRATE -> config.vibrateOnReminder = value.toBoolean()
                 LAST_EVENT_REMINDER_MINUTES -> config.lastEventReminderMinutes1 = value.toInt()
