@@ -196,6 +196,7 @@ fun Context.scheduleAllEvents() {
 fun Context.scheduleNextEventReminder(event: Event, showToasts: Boolean) {
     val validReminders = event.getReminders().filter { it.type == REMINDER_NOTIFICATION }
     if (validReminders.isEmpty()) {
+        cancelPendingIntent(event.id!!)
         if (showToasts) {
             toast(org.fossify.commons.R.string.saving)
         }
@@ -226,6 +227,8 @@ fun Context.scheduleNextEventReminder(event: Event, showToasts: Boolean) {
             }
         }
 
+        // no upcoming reminder, so cancel the one scheduled before the event was changed
+        cancelPendingIntent(event.id!!)
         if (showToasts) {
             toast(org.fossify.commons.R.string.saving)
         }
