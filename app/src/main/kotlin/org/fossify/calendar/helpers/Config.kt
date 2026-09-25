@@ -194,6 +194,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(LOOP_REMINDERS, false)
         set(loopReminders) = prefs.edit().putBoolean(LOOP_REMINDERS, loopReminders).apply()
 
+    var remindAboutStartedEvents: Boolean
+        get() = prefs.getBoolean(REMIND_ABOUT_STARTED_EVENTS, true)
+        set(remind) = prefs.edit().putBoolean(REMIND_ABOUT_STARTED_EVENTS, remind).apply()
+
     var dimPastEvents: Boolean
         get() = prefs.getBoolean(DIM_PAST_EVENTS, true)
         set(dimPastEvents) = prefs.edit().putBoolean(DIM_PAST_EVENTS, dimPastEvents).apply()
