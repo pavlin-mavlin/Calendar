@@ -20,9 +20,11 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
     private val ITEM_SECTION_MONTH = 2
 
     private val allDayString = context.resources.getString(R.string.all_day)
+    private val todayString = context.resources.getString(org.fossify.commons.R.string.today)
     private var events = ArrayList<ListItem>()
     private var textColor = context.config.widgetTextColor
     private var weakTextColor = textColor.adjustAlpha(MEDIUM_ALPHA)
+    private var todayColor = context.getProperPrimaryColor()
     private var displayDescription = context.config.displayDescription
     private var replaceDescription = context.config.replaceDescription
     private var dimPastEvents = context.config.dimPastEvents
@@ -38,6 +40,7 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
     private fun initConfigValues() {
         textColor = context.config.widgetTextColor
         weakTextColor = textColor.adjustAlpha(MEDIUM_ALPHA)
+        todayColor = context.getProperPrimaryColor()
         displayDescription = context.config.displayDescription
         replaceDescription = context.config.replaceDescription
         dimPastEvents = context.config.dimPastEvents
@@ -135,14 +138,16 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
 
     private fun setupListSectionDay(remoteView: RemoteViews, item: ListSectionDay) {
         var curTextColor = textColor
-        if (dimPastEvents && item.isPastSection) {
+        if (item.isToday) {
+            curTextColor = todayColor
+        } else if (dimPastEvents && item.isPastSection) {
             curTextColor = weakTextColor
         }
 
         remoteView.apply {
             setTextColor(R.id.event_section_title, curTextColor)
-            setTextSize(R.id.event_section_title, mediumFontSize - 3f)
-            setText(R.id.event_section_title, item.title)
+            setTextSize(R.id.event_section_title, if (item.isToday) mediumFontSize else mediumFontSize - 3f)
+            setText(R.id.event_section_title, if (item.isToday) todayString else item.title)
 
             Intent().apply {
                 putExtra(DAY_CODE, item.code)
@@ -205,7 +210,7 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
             var prevCode = ""
             var prevMonthLabel = ""
             val now = getNowSeconds()
-            val today = Formatter.getDayTitle(context, Formatter.getDayCodeFromTS(now))
+            val todayCode = Formatter.getDayCodeFromTS(now)
 
             sorted.forEach { event ->
                 val code = Formatter.getDayCodeFromTS(event.startTS)
@@ -218,7 +223,7 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
 
                 if (code != prevCode) {
                     val day = Formatter.getDateDayTitle(code)
-                    val isToday = day == today
+                    val isToday = code == todayCode
                     val listSection = ListSectionDay(day, code, isToday, !isToday && event.startTS < now)
                     listItems.add(listSection)
                     prevCode = code
