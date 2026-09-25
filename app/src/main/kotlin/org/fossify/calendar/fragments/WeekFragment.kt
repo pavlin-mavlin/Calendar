@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.util.Range
+import android.util.TypedValue
 import android.view.DragEvent
 import android.view.GestureDetector
 import android.view.LayoutInflater
@@ -35,6 +36,7 @@ import org.fossify.calendar.extensions.checkViewStrikeThrough
 import org.fossify.calendar.extensions.config
 import org.fossify.calendar.extensions.eventsDB
 import org.fossify.calendar.extensions.eventsHelper
+import org.fossify.calendar.extensions.getWeeklyViewEventFontSize
 import org.fossify.calendar.extensions.getWeeklyViewItemHeight
 import org.fossify.calendar.extensions.intersects
 import org.fossify.calendar.extensions.seconds
@@ -121,6 +123,7 @@ class WeekFragment : Fragment(), WeeklyCalendar {
     private var dimPastEvents = true
     private var dimCompletedTasks = true
     private var highlightWeekends = false
+    private var eventFontSize = 0f
     private var wasScaled = false
     private var isPrintVersion = false
     private var selectedGrid: View? = null
@@ -152,6 +155,7 @@ class WeekFragment : Fragment(), WeeklyCalendar {
         dimPastEvents = config.dimPastEvents
         dimCompletedTasks = config.dimCompletedTasks
         highlightWeekends = config.highlightWeekends
+        eventFontSize = requireContext().getWeeklyViewEventFontSize()
         primaryColor = requireContext().getProperPrimaryColor()
         allDayRows.add(HashSet())
     }
@@ -792,6 +796,7 @@ class WeekFragment : Fragment(), WeeklyCalendar {
 
                         weekEventLabel.apply {
                             setTextColor(textColor)
+                            setTextSize(TypedValue.COMPLEX_UNIT_PX, eventFontSize)
                             maxLines = if (event.isTask() || event.startTS == event.endTS) {
                                 1
                             } else {
@@ -948,6 +953,7 @@ class WeekFragment : Fragment(), WeeklyCalendar {
 
             weekEventLabel.apply {
                 setTextColor(textColor)
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, eventFontSize)
                 maxLines = if (event.isTask()) 1 else 2
                 text = event.title
                 checkViewStrikeThrough(event.shouldStrikeThrough())

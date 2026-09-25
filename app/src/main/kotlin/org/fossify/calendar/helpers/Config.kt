@@ -38,6 +38,10 @@ class Config(context: Context) : BaseConfig(context) {
         get() = prefs.getBoolean(ALLOW_CUSTOMIZE_DAY_COUNT, true)
         set(allow) = prefs.edit().putBoolean(ALLOW_CUSTOMIZE_DAY_COUNT, allow).apply()
 
+    var weeklyViewEventFontScale: Int
+        get() = prefs.getInt(WEEKLY_VIEW_EVENT_FONT_SCALE, DEFAULT_WEEKLY_VIEW_EVENT_FONT_SCALE)
+        set(percent) = prefs.edit().putInt(WEEKLY_VIEW_EVENT_FONT_SCALE, percent).apply()
+
     var vibrateOnReminder: Boolean
         get() = prefs.getBoolean(VIBRATE, false)
         set(vibrate) = prefs.edit().putBoolean(VIBRATE, vibrate).apply()
