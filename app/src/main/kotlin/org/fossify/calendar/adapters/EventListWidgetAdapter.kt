@@ -24,7 +24,6 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
     private var events = ArrayList<ListItem>()
     private var textColor = context.config.widgetTextColor
     private var weakTextColor = textColor.adjustAlpha(MEDIUM_ALPHA)
-    private var todayColor = context.getProperPrimaryColor()
     private var displayDescription = context.config.displayDescription
     private var replaceDescription = context.config.replaceDescription
     private var dimPastEvents = context.config.dimPastEvents
@@ -40,7 +39,6 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
     private fun initConfigValues() {
         textColor = context.config.widgetTextColor
         weakTextColor = textColor.adjustAlpha(MEDIUM_ALPHA)
-        todayColor = context.getProperPrimaryColor()
         displayDescription = context.config.displayDescription
         replaceDescription = context.config.replaceDescription
         dimPastEvents = context.config.dimPastEvents
@@ -138,9 +136,7 @@ class EventListWidgetAdapter(val context: Context, val intent: Intent) : RemoteV
 
     private fun setupListSectionDay(remoteView: RemoteViews, item: ListSectionDay) {
         var curTextColor = textColor
-        if (item.isToday) {
-            curTextColor = todayColor
-        } else if (dimPastEvents && item.isPastSection) {
+		if (dimPastEvents && item.isPastSection) {
             curTextColor = weakTextColor
         }
 
