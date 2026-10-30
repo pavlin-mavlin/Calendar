@@ -34,7 +34,9 @@ android {
         applicationId = project.property("APP_ID").toString()
         minSdk = project.libs.versions.app.build.minimumSDK.get().toInt()
         targetSdk = project.libs.versions.app.build.targetSDK.get().toInt()
-        versionCode = project.property("VERSION_CODE").toString().toInt()
+        // Large offset keeps this build "newer" than the Play Store release with the same
+        // applicationId, so Google Play never offers to replace it with the upstream version.
+        versionCode = 1_000_000 + project.property("VERSION_CODE").toString().toInt()
         versionName = project.property("VERSION_NAME").toString()
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
